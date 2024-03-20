@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 namespace NSE.Identidade.Api.Models;
 
@@ -26,3 +27,23 @@ public class UsuarioLogin
     [StringLength(100, ErrorMessage = "O campo {0} deve ter entre {2} e {1} caracteres", MinimumLength = 6)]
     public string Senha { get; set; } = null!;
 } 
+
+public class UsuarioResponstaLogin
+{
+    public string AccessToken { get; set; } = null!;
+    public double ExpiresIn { get; set; }
+    public UsuarioToken UsuarioToken { get; set; } = null!;
+}
+
+public class UsuarioToken
+{
+    public string Id { get; set; } = null!;
+    public string Email { get; set; } = null!;
+    public IEnumerable<UsuarioClaim> Claims { get; set; } = null!;
+}
+
+public class UsuarioClaim
+{
+    public string Value { get; set; } = null!;
+    public string Type { get; set; } = null!;
+}
